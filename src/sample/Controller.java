@@ -18,7 +18,7 @@ public class Controller {
     @FXML
     void initialize()
     {
-        L_normal.setEditable(false);
+        L_normal.setEditable(false); // ustawianie tekstu
         L_normal.setText(L + L_Profit);
 
 

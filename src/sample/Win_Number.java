@@ -6,34 +6,47 @@ public class Win_Number
     private String results = "";
     private int position = 0;
 
-    public String find_number()
+    /**
+     * szuka numerow wygrywajacych w pliku pobranym z internetu
+     * @return aktualnie najnowsze numery wygrywajace
+     * @throws IndexOutOfBoundsException
+     */
+    public String find_number() throws  IndexOutOfBoundsException
     {
-        position=content.indexOf("resultnumber",position);
+        position=content.indexOf("result-item__balls-box",position); // slowo kluczowe po ktorym beda podane wygrywajace numery
+        position=content.indexOf("\n",position);
 
+
+       // position+=90;
         String tmp="";
         int ileZN;
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) { // szukamy 6 liczb
 
-            outerloop:
-            while(position < content.length())
+            outerloop: //
+            while(position < content.length()) // wyjscie z petli nastepuje gdy zostanie znaleziona liczba
             {
+
                 for (int j = 1; j <= 9; j++)
                 {
                     if ( content.charAt(position) == (char)(j+'0') )
                         break outerloop;
                 }
+
                 position++;
+
             }
 
-            if (content.charAt(position + 1) == ' ')
+            if (content.charAt(position + 1) == '\n')
                 ileZN = 1;
             else
                 ileZN = 2;
 
             tmp = content.substring(position, position + ileZN);
 
-            position+=2;
+
+            position+=90; // omijanie niepotrzebnych linii
+
             if (i == 0)
                 results = results + tmp;
             else
@@ -42,10 +55,6 @@ public class Win_Number
         return results;
     }
 
-    public String get_Results()
-    {
-        return results;
-    }
 
     public Win_Number(String content)
     {
